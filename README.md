@@ -4,4 +4,4 @@
 
 ### Vercel Deployment ###
 
-[**Vercel.app**](https://mongooseexercise.vercel.app/)
+[**Vercel.app**](https://mongoose-exercise.vercel.app/)
