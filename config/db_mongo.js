@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
 
-mongoose.connect("mongodb://localhost/mongooseExercise");
+mongoose.connect(process.env.CONNECTION_STRING);
 
 const db = mongoose.connection;
 
