@@ -2,6 +2,14 @@
 
 Rutas Express para acceder, crear, actualizar y borrar contenido dentro de una base de datos en MongoDB.
 
+Dentro de la carpeta [utils](utils) existen dos archivos json con objetos de prueba para Products y Providers.
+
+**Paquetes usados en este proyecto:**
+- Express
+- MongoDB
+- Mongoose
+- dotenv
+
 ---------------------------------------------------------------------------
 
 ### Vercel Deployment ###
