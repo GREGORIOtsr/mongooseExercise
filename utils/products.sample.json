@@ -1,0 +1,36 @@
+[{
+  "title": "Tortilla Marquina",
+  "price": 1.8,
+  "description": "La mejor tortilla de la zona en el Teatro Marquina",
+  "provider": "Teatro Marquina"
+},
+{
+  "title": "Café",
+  "price": 1.2,
+  "description": "El mejor café de la zona en el Teatro Marquina",
+  "provider": "Teatro Marquina"
+},
+{
+  "title": "Desarrollo Web Fullstack",
+  "price": 7000,
+  "description": "Bootcamp de progamación front-end y back-end",
+  "provider": "The Bridge"
+},
+{
+  "title": "Diseño UX/UI",
+  "price": 6800,
+  "description": "Bootcamp de investigación, prototipado y diseño de producto",
+  "provider": "The Bridge"
+},
+{
+  "title": "Brownies de coco",
+  "price": 1.75,
+  "description": "Brownies de chocolate con topping de coco",
+  "provider": "Primaprix"
+},
+{
+  "title": "Leche de avena",
+  "price": 2.5,
+  "description": "Bebida de avena 100% vegana",
+  "provider": "Primaprix"
+}]

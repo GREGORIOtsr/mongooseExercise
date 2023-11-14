@@ -3,29 +3,37 @@ const Provider = require('../models/providers.model');
 
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find({}, '-_id -__v -provider.id');
+        const products = await Product
+            .find()
+            .populate('provider', '-_id -__v')
+            .select('-_id -__v');
         res.status(200).json(products);
     } catch (error) {
         res.status(400).json({message: `ERROR: ${error.stack}`});
     }
 };
 
-const createProduct = async (req, res) => { 
+const createProduct = async (req, res) => {
     try{
-        const {title, price, description, provider} = req.body;
-        const providerRef = await Provider.find({company_name: req.body.provider});
-        const provider_id = providerRef[0]._id.toString();
-        const data = {
-            title,
-            price,
-            description,
-            provider: {
-                name: providerRef[0].company_name,
-                id: provider_id
+        if (Object.keys(req.body).length === 0) {
+            res.status(400).json({message: `ERROR: No se han introducido datos`})
+        } else {
+            const {title, price, description, provider} = req.body;
+            const providerRef = await Provider.find({company_name: provider});
+            if (providerRef == '') {
+                res.status(400).json({message: `ERROR: El provider: '${provider}' no existe`})
+            } else {
+                const provider_id = providerRef[0]._id.toString();
+                const data = {
+                    title,
+                    price,
+                    description,
+                    provider: provider_id
+                };
+                let result = await new Product(data).save();
+                res.status(201).json({message: "Producto creado", product: result});
             }
-        };
-        let result = await new Product(data).save();
-        res.status(201).json({message: "Producto creado", product: result});
+        }
     }catch (error) {
         res.status(400).json({msj:`ERROR: ${error.stack}`});
     }

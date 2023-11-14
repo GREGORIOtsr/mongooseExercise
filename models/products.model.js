@@ -16,14 +16,9 @@ const objectSchema = {
         required: true 
     },
     provider: {
-        name: {
-            type: String,
-            required: true
-        },
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Provider'
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Provider',
+        required: true
     }
 };
 

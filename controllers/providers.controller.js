@@ -12,8 +12,12 @@ const getProviders = async (req, res) => {
 
 const createProvider = async (req, res) => {
     try {
-        const result = await new Provider(req.body).save();
-        res.status(201).json({message: "Proveedor creado", provider: result});
+        if (Object.keys(req.body).length === 0) {
+            res.status(400).json({message: `ERROR: No se han introducido datos`})
+        } else {
+            const result = await new Provider(req.body).save();
+            res.status(201).json({message: "Proveedor creado", provider: result});
+        }
     } catch (error) {
         res.status(400).json({message: `ERROR: ${error.stack}`});
     }
