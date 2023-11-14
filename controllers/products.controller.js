@@ -49,10 +49,7 @@ const updateProduct = async (req, res) => {
                 title,
                 price,
                 description,
-                provider: {
-                    name: providerRef[0].company_name,
-                    id: provider_id
-                }
+                provider: provider_id
             }
             const result = await Product.findOneAndUpdate({title}, data, {new: true});
         } else {
