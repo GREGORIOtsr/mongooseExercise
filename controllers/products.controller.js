@@ -52,10 +52,11 @@ const updateProduct = async (req, res) => {
                 provider: provider_id
             }
             const result = await Product.findOneAndUpdate({title}, data, {new: true});
+            res.status(200).json({message: `Producto actualizado: ${req.body.title}`, product: result});
         } else {
             const result = await Product.findOneAndUpdate({title}, req.body, {new: true});
+            res.status(200).json({message: `Producto actualizado: ${req.body.title}`, product: result});
         }
-        res.status(200).json({message: `Producto actualizado: ${req.body.title}`, product: result});
     } catch (error) {
         res.status(400).json({message: `ERROR: ${error.stack}`});
     }
@@ -63,8 +64,14 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        const result = await Product.deleteOne({title: req.body.title});
+        const title = req.body.title;
+        const productsRef = await Provider.find({title});
+        if (productsRef.length === 0) {
+            res.status(400).json({message: `ERROR: no existe el product '${title}'`});
+        } else {
+        const result = await Product.deleteOne({title});
         res.status(200).json({message: `Se ha borrado el producto: ${req.body.title}`});
+        }
     } catch (error) {
         res.status(400).json({message: `ERROR: ${error.stack}`});
     }

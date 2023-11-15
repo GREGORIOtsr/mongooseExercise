@@ -36,12 +36,19 @@ const updateProvider = async (req, res) => {
 const deleteProvider = async (req, res) => {
     try {
         const name = req.body.company_name;
-        const products = await Product.find({"provider.name": name})
-        if (products.length > 0) {
-            res.status(409).json({message: `No se pudo borrar el proveedor '${req.body.company_name}' porque tiene productos asociados.`});
+        const providerRef = await Provider.find({company_name: name});
+        if (providerRef.length === 0) {
+            res.status(400).json({message: `ERROR: no existe el proveedor '${name}'`})
         } else {
-            const result = await Provider.deleteOne({company_name: name});
-            res.status(200).json({message: `Se ha borrado el proveedor: ${name}`});
+            const provider_id = providerRef[0]._id.toString();
+            const products = await Product.find({"provider": provider_id});
+            console.log(products);
+            if (products.length > 0) {
+                res.status(409).json({message: `No se pudo borrar el proveedor '${name}' porque tiene productos asociados.`});
+            } else {
+                const result = await Provider.deleteOne({company_name: name});
+                res.status(200).json({message: `Se ha borrado el proveedor: ${name}`});
+            }
         }
     } catch (error) {
         res.status(400).json({message: `ERROR: ${error.stack}`});
